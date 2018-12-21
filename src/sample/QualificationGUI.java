@@ -1,6 +1,6 @@
 package sample;
 
-import javafx.scene.Scene;
+import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
@@ -14,17 +14,16 @@ import java.util.ArrayList;
 /**
  * Created by Linus on 2018-12-21.
  */
-public class LanguageListGUI {
-
+public class QualificationGUI {
     private GridPane layout;
-    private ListView<Language> languageList;
-    private ArrayList<Language> langs;
+    private ListView<Exhibition> qualificationList;
+    private ArrayList<Exhibition> qualifications;
 
-    public LanguageListGUI(ArrayList<Language> langs) throws Exception{
-        langs = langs;
+    public QualificationGUI(ArrayList<Exhibition> qualifications) throws Exception{
+        qualifications = qualifications;
         layout = new GridPane();
-        languageList = new ListView<>();
-        languageList.getItems().setAll(langs);
+        qualificationList = new ListView<>();
+        qualificationList.getItems().setAll(qualifications);
         initGUI();
         addComponents();
     }
@@ -36,21 +35,21 @@ public class LanguageListGUI {
 
     private void addComponents(){
         VBox box = new VBox(10);
-        Text title = new Text("Languages");
+        Text title = new Text("Qualifications");
         title.setFont(new Font(24));
         HBox btnBox = new HBox(15);
-        Button addLangBtn = Utils.createButton("Add Language", event -> addLanguage());
-        Button deleteLangBtn = Utils.createButton("Remove Language", event -> deleteLanguage());
+        Button addLangBtn = Utils.createButton("Add Qualification", event -> addQualification());
+        Button deleteLangBtn = Utils.createButton("Remove Qualification", event -> deleteQualification());
         btnBox.getChildren().addAll(addLangBtn, deleteLangBtn);
-        box.getChildren().addAll(title, languageList, btnBox);
+        box.getChildren().addAll(title, qualificationList, btnBox);
         layout.add(box, 0, 0);
     }
 
-    private void addLanguage(){
+    private void addQualification(){
 
     }
 
-    private void deleteLanguage(){
+    private void deleteQualification(){
 
     }
 
