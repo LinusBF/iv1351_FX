@@ -91,6 +91,21 @@ public class DbWrapper {
         return false;
     }
 
+    public ArrayList<Exhibition> getExhibitionsEmployeeQualifiedFor(String employeeName) throws Exception {
+        ArrayList<Exhibition> exhibitions = new ArrayList<Exhibition>();
+        ResultSet t = statement.executeQuery("select * from Employee where Name='" + employeeName + "'");
+		if(t.next())  {
+            ResultSet r = statement.executeQuery("select * from Exhibition where ExhibitionID in (select ExhibitionID from EmployeeQualifiedFor where PersonNr=(select PersonNr from Employee where Name='" + employeeName + "'))");
+            while(r.next()) {
+                exhibitions.add(new Exhibition(r.getInt("ExhibitionID"), r.getString("Title"), r.getDate("Start"), r.getDate("End"), r.getInt("Space"), r.getDouble("Cost")));
+            }
+        } else {
+            System.out.println("No employee with the name " + employeeName);
+        }
+
+        return exhibitions;
+    }
+
     public static void main(String[] args) {
         DbWrapper wrapper = new DbWrapper();
         wrapper.connect();
@@ -102,6 +117,12 @@ public class DbWrapper {
             for(String i : wrapper.getAllGuideLanguages("John Baptiste")) {
                 System.out.println(i);
             }
+
+            System.out.println();
+            for(Exhibition e : wrapper.getExhibitionsEmployeeQualifiedFor("John Baptiste")) {
+                System.out.println(e.toString());
+            }
+            System.out.println();
 
             if(wrapper.addEmployeeLanguage("Ghost Face", "Norwegian")) {
                 // Success
