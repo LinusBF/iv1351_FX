@@ -5,10 +5,10 @@ import java.sql.*;
 public class DbWrapper {
     static public Connection connection;
     
-    private String URL = "jdbc:mysql:///museum";
+    private String URL = "jdbc:mysql://localhost:3306/museum";
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String userID = "iv1351";
-    private String password = "1234";
+    private String userID = "root";
+    private String password = "";
     private Statement statement;
     
     public void connect() {
