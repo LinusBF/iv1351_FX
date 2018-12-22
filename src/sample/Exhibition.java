@@ -37,8 +37,18 @@ public class Exhibition {
         return exhibitions;
     }
 
-    public static ArrayList<Exhibition> getAllExhibitions(){
-        return getMockExhibitions();
+    public static ArrayList<Exhibition> getAllExhibitions() throws Exception {
+        ArrayList<Exhibition> exhibitions = new ArrayList<>();
+        DbWrapper db = new DbWrapper();
+        db.connect();
+
+        exhibitions = db.getAllExhibitions();
+
+        return exhibitions;
+    }
+
+    public Integer getID(){
+        return ID;
     }
 
     @Override

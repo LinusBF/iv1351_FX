@@ -4,7 +4,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -12,6 +14,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by Linus on 2018-12-21.
@@ -51,7 +55,9 @@ public class QualificationGUI {
         qualificationList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Exhibition>() {
             @Override
             public void changed(ObservableValue<? extends Exhibition> observable, Exhibition oldValue, Exhibition newValue) {
-                selectNewQualification(newValue);
+                if(newValue != null) {
+                    selectNewQualification(newValue);
+                }
             }
         });
 
@@ -59,12 +65,28 @@ public class QualificationGUI {
         qualificationList.getFocusModel().focus(qualifications.indexOf(selectedQualification));
     }
 
-    private void addQualification(){
+    private void addQualification() {
+        /*ArrayList<String> exhibitionNames = new ArrayList<>();
+        exhibitionNames.addAll(Exhibition.getAllExhibitions().stream().map(Exhibition::toString).collect(Collectors.toList()));*/
+        ArrayList<Exhibition> exhibitions;
+        try{
+            exhibitions = Exhibition.getAllExhibitions();
+        } catch (Exception e){
+            System.out.println("Can't reach the database");
+            exhibitions = new ArrayList<>();
+        }
 
+        if(exhibitions.size() > 0) {
+            ChoiceDialog<Exhibition> dialog = new ChoiceDialog<>(exhibitions.get(0), exhibitions);
+            dialog.setTitle("Add a qualification to a guide");
+            dialog.setContentText("Choose an exhibition:");
+            Optional<Exhibition> result = dialog.showAndWait();
+            result.ifPresent(exhibition -> Main.singleton.addQualificationToGuide(exhibition));
+        }
     }
 
     private void deleteQualification(){
-
+        Main.singleton.removeQualificationFromGuide();
     }
 
     private void selectNewQualification(Exhibition newQualification){
@@ -72,9 +94,14 @@ public class QualificationGUI {
         System.out.println("Selected qualification " + newQualification);
     }
 
+    public Exhibition getSelectedQualification(){
+        return selectedQualification;
+    }
+
     public void updateQualifications(ArrayList<Exhibition> qualifications){
         this.qualifications = qualifications;
         qualificationList.getItems().setAll(qualifications);
+        selectedQualification = qualifications.get(0);
     }
 
     public GridPane getLayout() {

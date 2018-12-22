@@ -46,7 +46,7 @@ public class Guide {
         return exhibitions;
     }
 
-    private static Guide[] getMockGuides(){
+    private static Guide[] getMockGuides() throws Exception {
         ArrayList<Language> langs = Language.getLangs();
 
         Guide linus = new Guide("Linus", "9709157416");
@@ -89,6 +89,34 @@ public class Guide {
         return guides;
     }
 
+    public Boolean addLangToGuide(Language lang) throws Exception {
+        if(langs.contains(lang)) return false;
+        DbWrapper db = new DbWrapper();
+        db.connect();
+        return db.addEmployeeLanguage(name, lang.name);
+    }
+
+    public Boolean removeLangFromGuide(Language lang) throws Exception {
+        if(!langs.contains(lang)) return false;
+        DbWrapper db = new DbWrapper();
+        db.connect();
+        return db.removeEmployeeLanguage(name, lang.name);
+    }
+
+    public Boolean addQualificationToGuide(Exhibition qualification) throws Exception {
+        if(exhibitions.contains(qualification)) return false;
+        DbWrapper db = new DbWrapper();
+        db.connect();
+        return db.addEmployeeQualification(name, qualification.getID());
+    }
+
+    public Boolean removeQualificationFromGuide(Exhibition qualification) throws Exception {
+        if(!exhibitions.contains(qualification)) return false;
+        DbWrapper db = new DbWrapper();
+        db.connect();
+        return db.removeEmployeeQualification(name, qualification.getID());
+    }
+
     public void save(){
 
     }
@@ -96,5 +124,10 @@ public class Guide {
     @Override
     public String toString() {
         return name + " (" + personNr + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Guide && ((Guide) obj).personNr.equals(this.personNr));
     }
 }

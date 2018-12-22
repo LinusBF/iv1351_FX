@@ -44,6 +44,64 @@ public class Main extends Application {
         languageListGUI.updateLanguages(newGuide.getLangs());
     }
 
+    private void refresh(){
+        ArrayList<Guide> guides;
+        try{
+            guides = Guide.getGuides();
+        } catch (Exception e){
+            System.out.println("Could not reach database");
+            guides = new ArrayList<>();
+        }
+
+        if(guides.size() > 0){
+            employeeListGUI.updateGuides(guides);
+            languageListGUI.updateLanguages(employeeListGUI.getSelectedGuide().getLangs());
+            qualificationGUI.updateQualifications(employeeListGUI.getSelectedGuide().getExhibitions());
+        }
+    }
+
+    public void addLanguageToGuide(Language lang){
+        try{
+            if(employeeListGUI.getSelectedGuide().addLangToGuide(lang)){
+                refresh();
+            }
+        } catch (Exception e) {
+            System.out.println("Can't talk to the database!");
+        }
+    }
+
+    public void removeLanguageFromGuide(){
+        Language langToRemove = languageListGUI.getSelectedLanguage();
+        try{
+            if(employeeListGUI.getSelectedGuide().removeLangFromGuide(langToRemove)){
+                refresh();
+            }
+        } catch (Exception e){
+            System.out.println("Can't talk to the database!");
+        }
+    }
+
+    public void addQualificationToGuide(Exhibition exhibition){
+        try{
+            if(employeeListGUI.getSelectedGuide().addQualificationToGuide(exhibition)){
+                refresh();
+            }
+        } catch (Exception e){
+            System.out.println("Can't talk to the database!");
+        }
+    }
+
+    public void removeQualificationFromGuide(){
+        Exhibition qualificationToRemove = qualificationGUI.getSelectedQualification();
+        try{
+            if(employeeListGUI.getSelectedGuide().removeQualificationFromGuide(qualificationToRemove)){
+                refresh();
+            }
+        } catch (Exception e){
+            System.out.println("Can't talk to the database!");
+        }
+    }
+
 
     public static void main(String[] args) {
         launch(args);

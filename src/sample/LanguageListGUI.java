@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -12,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Created by Linus on 2018-12-21.
@@ -52,7 +54,9 @@ public class LanguageListGUI {
         languageList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Language>() {
             @Override
             public void changed(ObservableValue<? extends Language> observable, Language oldValue, Language newValue) {
-                selectNewLanguage(newValue);
+                if(newValue != null) {
+                    selectNewLanguage(newValue);
+                }
             }
         });
 
@@ -61,16 +65,24 @@ public class LanguageListGUI {
     }
 
     private void addLanguage(){
-
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Add a language to a guide");
+        dialog.setContentText("Please enter your name:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(lang -> Main.singleton.addLanguageToGuide(new Language(lang)));
     }
 
     private void deleteLanguage(){
-
+        Main.singleton.removeLanguageFromGuide();
     }
 
     private void selectNewLanguage(Language newLang){
         selectedLanguage = newLang;
         System.out.println("Selected language " + newLang);
+    }
+
+    public Language getSelectedLanguage(){
+        return selectedLanguage;
     }
 
     public void updateLanguages(ArrayList<Language> langs){

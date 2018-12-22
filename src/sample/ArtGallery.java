@@ -33,7 +33,7 @@ public class ArtGallery {
         return chosenGuide;
     }
 
-    private Language getLangByName(String name){
+    private Language getLangByName(String name) throws Exception {
         Language chosenLang = null;
         for(Language l : Language.getLangs()){
             if(l.name.toLowerCase().equals(name.toLowerCase())){
@@ -56,7 +56,7 @@ public class ArtGallery {
         }
     }
 
-    public void addLangToGuide(String name, String lang){
+    public void addLangToGuide(String name, String lang) throws Exception {
         Guide chosenGuide = this.getGuideByName(name);
         Language chosenLang = this.getLangByName(lang);
         if(chosenGuide == null){
@@ -109,7 +109,11 @@ public class ArtGallery {
                     String addName = scan.next();
                     System.out.println("What language do you want to add to this guide?");
                     String addLang = scan.next();
-                    gallery.addLangToGuide(addName, addLang);
+                    try {
+                        gallery.addLangToGuide(addName, addLang);
+                    } catch (Exception e) {
+                        System.out.println("Can't access the database!");
+                    }
                     break;
             }
             gallery.printMenu();

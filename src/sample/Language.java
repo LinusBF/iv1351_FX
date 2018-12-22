@@ -21,10 +21,12 @@ public class Language {
         return new String[]{"Svenska", "Engelska", "Tyska", "Franska", "Spanska"};
     }
 
-    public static ArrayList<Language> getLangs(){
+    public static ArrayList<Language> getLangs() throws Exception {
         ArrayList<Language> langs = new ArrayList<>();
+        DbWrapper db = new DbWrapper();
+        db.connect();
 
-        for (String lang : Language.getMockLangs()) {
+        for (String lang : db.getAllLanguageNames()) {
             langs.add(new Language(lang, false));
         }
 

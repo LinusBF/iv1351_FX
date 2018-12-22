@@ -51,10 +51,20 @@ public class EmployeeListGUI {
         guideList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Guide>() {
             @Override
             public void changed(ObservableValue<? extends Guide> observable, Guide oldValue, Guide newValue) {
-                selectNewGuide(newValue);
+                if(newValue != null) {
+                    selectNewGuide(newValue);
+                }
             }
         });
 
+        guideList.getSelectionModel().select(selectedGuide);
+        guideList.getFocusModel().focus(guides.indexOf(selectedGuide));
+    }
+
+    public void updateGuides(ArrayList<Guide> guides){
+        this.guides = guides;
+        selectedGuide = (guides.contains(selectedGuide) ? guides.get(guides.indexOf(selectedGuide)) : guides.get(0));
+        guideList.getItems().setAll(guides);
         guideList.getSelectionModel().select(selectedGuide);
         guideList.getFocusModel().focus(guides.indexOf(selectedGuide));
     }
