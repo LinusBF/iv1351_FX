@@ -8,7 +8,11 @@ public class ArtGallery {
 
     public ArtGallery(){
         super();
-        guides = Guide.getGuides();
+        try{
+            guides = Guide.getGuides();
+        } catch (Exception e){
+            guides = new ArrayList<>();
+        }
     }
 
     public void printMenu(){

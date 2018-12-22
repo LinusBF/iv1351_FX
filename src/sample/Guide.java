@@ -6,19 +6,22 @@ public class Guide {
     private String name;
     private String personNr;
     private ArrayList<Language> langs;
+    private ArrayList<Exhibition> exhibitions;
     private Boolean changed;
 
-    public Guide(String name, String personNr) {
+    private Guide(String name, String personNr) {
         this.name = name;
         this.personNr = personNr;
         this.langs = new ArrayList<>();
+        this.exhibitions = new ArrayList<>();
         this.changed = false;
     }
 
-    public Guide(String name, String personNr, ArrayList<Language> langs) {
+    public Guide(String name, String personNr, ArrayList<Language> langs, ArrayList<Exhibition> exhibitions) {
         this.name = name;
         this.personNr = personNr;
         this.langs = langs;
+        this.exhibitions = exhibitions;
         this.changed = false;
     }
 
@@ -37,6 +40,10 @@ public class Guide {
 
     public ArrayList<Language> getLangs() {
         return langs;
+    }
+
+    public ArrayList<Exhibition> getExhibitions() {
+        return exhibitions;
     }
 
     private static Guide[] getMockGuides(){
@@ -62,12 +69,21 @@ public class Guide {
         return new Guide[]{linus, josef, bader};
     }
 
-    public static ArrayList<Guide> getGuides (){
+    public static ArrayList<Guide> getGuides () throws Exception {
         ArrayList<Guide> guides = new ArrayList<>();
-        Guide[] mockGuides = Guide.getMockGuides();
 
-        for (Guide g : mockGuides){
-            guides.add(g);
+        DbWrapper db = new DbWrapper();
+        db.connect();
+        ArrayList<String[]> guideTuples = db.getAllGuidePersonNrAndName();
+
+        for (String[] tuple : guideTuples){
+            ArrayList<Language> guideLanguages = new ArrayList<>();
+            for (String lang : db.getAllGuideLanguages(tuple[1])) {
+                guideLanguages.add(new Language(lang));
+            }
+            ArrayList<Exhibition> guideExhibitions = db.getExhibitionsEmployeeQualifiedFor(tuple[1]);
+            Guide guide = new Guide(tuple[1], tuple[0], guideLanguages, guideExhibitions);
+            guides.add(guide);
         }
 
         return guides;

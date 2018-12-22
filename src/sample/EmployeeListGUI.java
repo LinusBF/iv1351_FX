@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -25,7 +27,7 @@ public class EmployeeListGUI {
     private Guide selectedGuide;
 
     public EmployeeListGUI(ArrayList<Guide> guides) {
-        guides = guides;
+        this.guides = guides;
         selectedGuide = guides.get(0);
         layout = new GridPane();
         guideList = new ListView<>();
@@ -43,16 +45,25 @@ public class EmployeeListGUI {
         VBox box = new VBox(10);
         Text title = new Text("Guides");
         title.setFont(new Font(24));
-        HBox btnBox = new HBox(15);
         box.getChildren().addAll(title, guideList);
         layout.add(box, 0, 0);
-        GridPane.setHalignment(layout, HPos.CENTER);
+
+        guideList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Guide>() {
+            @Override
+            public void changed(ObservableValue<? extends Guide> observable, Guide oldValue, Guide newValue) {
+                selectNewGuide(newValue);
+            }
+        });
+
+        guideList.getSelectionModel().select(selectedGuide);
+        guideList.getFocusModel().focus(guides.indexOf(selectedGuide));
     }
 
-    public void selectGuide(Guide newGuide){
+    public void selectNewGuide(Guide newGuide){
         if (newGuide.equals(selectedGuide)) return;
         selectedGuide = newGuide;
-        //TODO Trigger new guide selected event
+        System.out.println("Selected guide " + newGuide.getName());
+        Main.singleton.changeSelectedGuide(newGuide);
     }
 
     public Guide getSelectedGuide(){

@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -16,11 +18,13 @@ import java.util.ArrayList;
  */
 public class QualificationGUI {
     private GridPane layout;
+    private Exhibition selectedQualification;
     private ListView<Exhibition> qualificationList;
     private ArrayList<Exhibition> qualifications;
 
     public QualificationGUI(ArrayList<Exhibition> qualifications) throws Exception{
-        qualifications = qualifications;
+        this.qualifications = qualifications;
+        selectedQualification = qualifications.get(0);
         layout = new GridPane();
         qualificationList = new ListView<>();
         qualificationList.getItems().setAll(qualifications);
@@ -43,6 +47,16 @@ public class QualificationGUI {
         btnBox.getChildren().addAll(addLangBtn, deleteLangBtn);
         box.getChildren().addAll(title, qualificationList, btnBox);
         layout.add(box, 0, 0);
+
+        qualificationList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Exhibition>() {
+            @Override
+            public void changed(ObservableValue<? extends Exhibition> observable, Exhibition oldValue, Exhibition newValue) {
+                selectNewQualification(newValue);
+            }
+        });
+
+        qualificationList.getSelectionModel().select(selectedQualification);
+        qualificationList.getFocusModel().focus(qualifications.indexOf(selectedQualification));
     }
 
     private void addQualification(){
@@ -51,6 +65,16 @@ public class QualificationGUI {
 
     private void deleteQualification(){
 
+    }
+
+    private void selectNewQualification(Exhibition newQualification){
+        selectedQualification = newQualification;
+        System.out.println("Selected qualification " + newQualification);
+    }
+
+    public void updateQualifications(ArrayList<Exhibition> qualifications){
+        this.qualifications = qualifications;
+        qualificationList.getItems().setAll(qualifications);
     }
 
     public GridPane getLayout() {

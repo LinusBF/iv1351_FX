@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -17,13 +19,15 @@ import java.util.ArrayList;
 public class LanguageListGUI {
 
     private GridPane layout;
+    private Language selectedLanguage;
     private ListView<Language> languageList;
     private ArrayList<Language> langs;
 
     public LanguageListGUI(ArrayList<Language> langs) throws Exception{
-        langs = langs;
+        this.langs = langs;
         layout = new GridPane();
         languageList = new ListView<>();
+        selectedLanguage = langs.get(0);
         languageList.getItems().setAll(langs);
         initGUI();
         addComponents();
@@ -44,6 +48,16 @@ public class LanguageListGUI {
         btnBox.getChildren().addAll(addLangBtn, deleteLangBtn);
         box.getChildren().addAll(title, languageList, btnBox);
         layout.add(box, 0, 0);
+
+        languageList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Language>() {
+            @Override
+            public void changed(ObservableValue<? extends Language> observable, Language oldValue, Language newValue) {
+                selectNewLanguage(newValue);
+            }
+        });
+
+        languageList.getSelectionModel().select(selectedLanguage);
+        languageList.getFocusModel().focus(langs.indexOf(selectedLanguage));
     }
 
     private void addLanguage(){
@@ -52,6 +66,17 @@ public class LanguageListGUI {
 
     private void deleteLanguage(){
 
+    }
+
+    private void selectNewLanguage(Language newLang){
+        selectedLanguage = newLang;
+        System.out.println("Selected language " + newLang);
+    }
+
+    public void updateLanguages(ArrayList<Language> langs){
+        this.langs = langs;
+        languageList.getItems().setAll(langs);
+        selectedLanguage = langs.get(0);
     }
 
     public GridPane getLayout() {

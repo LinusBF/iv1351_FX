@@ -1,36 +1,47 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
 public class Main extends Application {
 
+    public static Main singleton;
+
+    private QualificationGUI qualificationGUI;
+    private EmployeeListGUI employeeListGUI;
+    private LanguageListGUI languageListGUI;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
+        singleton = this;
         BorderPane root = new BorderPane();
-        root.setPadding(new Insets(10));
+        Insets insets = new Insets(10);
+        root.setPadding(insets);
         ArrayList<Guide> guides = Guide.getGuides();
-        ArrayList<Exhibition> exhibitions = Exhibition.getAllExhibitions();
-        QualificationGUI qualifications = new QualificationGUI(exhibitions);
-        EmployeeListGUI employees = new EmployeeListGUI(guides);
-        LanguageListGUI languages = new LanguageListGUI(employees.getSelectedGuide().getLangs());
+        employeeListGUI = new EmployeeListGUI(guides);
+        languageListGUI = new LanguageListGUI(employeeListGUI.getSelectedGuide().getLangs());
+        qualificationGUI = new QualificationGUI(employeeListGUI.getSelectedGuide().getExhibitions());
         primaryStage.setTitle("Konstmuseum");
-        root.setLeft(qualifications.getLayout());
-        root.setCenter(employees.getLayout());
-        root.setRight(languages.getLayout());
-        BorderPane.setAlignment(employees.getLayout(), Pos.CENTER_RIGHT);
-        primaryStage.setScene(new Scene(root, 1024, 512));
+        BorderPane.setAlignment(qualificationGUI.getLayout(), Pos.CENTER);
+        root.setLeft(employeeListGUI.getLayout());
+        root.setCenter(qualificationGUI.getLayout());
+        root.setRight(languageListGUI.getLayout());
+        BorderPane.setMargin(qualificationGUI.getLayout(), insets);
+        BorderPane.setMargin(employeeListGUI.getLayout(), insets);
+        BorderPane.setMargin(languageListGUI.getLayout(), insets);
+        primaryStage.setScene(new Scene(root, 800, 512));
         primaryStage.show();
+    }
+
+    public void changeSelectedGuide(Guide newGuide){
+        qualificationGUI.updateQualifications(newGuide.getExhibitions());
+        languageListGUI.updateLanguages(newGuide.getLangs());
     }
 
 

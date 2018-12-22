@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/Exhibition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/QualificationGUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/ArtGallery.java" afterPath="$PROJECT_DIR$/src/sample/ArtGallery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/DbWrapper.java" afterPath="$PROJECT_DIR$/src/sample/DbWrapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/EmployeeListGUI.java" afterPath="$PROJECT_DIR$/src/sample/EmployeeListGUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Guide.java" afterPath="$PROJECT_DIR$/src/sample/Guide.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/LanguageListGUI.java" afterPath="$PROJECT_DIR$/src/sample/LanguageListGUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Main.java" afterPath="$PROJECT_DIR$/src/sample/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/sample.fxml" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/QualificationGUI.java" afterPath="$PROJECT_DIR$/src/sample/QualificationGUI.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,12 +69,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
-              <folding />
+            <state relative-caret-position="510">
+              <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,12 +84,12 @@
       <file leaf-file-name="QualificationGUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/QualificationGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="606">
-              <caret line="43" column="67" selection-start-line="43" selection-start-column="67" selection-end-line="43" selection-end-column="67" />
+            <state relative-caret-position="334">
+              <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1650#1651#0" expanded="true" />
-                <element signature="e#1679#1680#0" expanded="true" />
+                <element signature="e#2747#2748#0" expanded="true" />
+                <element signature="e#2776#2777#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,14 +114,14 @@
       <file leaf-file-name="EmployeeListGUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/EmployeeListGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+            <state relative-caret-position="188">
+              <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1576#1577#0" expanded="true" />
-                <element signature="e#1612#1613#0" expanded="true" />
-                <element signature="e#1647#1648#0" expanded="true" />
-                <element signature="e#1676#1677#0" expanded="true" />
+                <element signature="e#2093#2094#0" expanded="true" />
+                <element signature="e#2129#2130#0" expanded="true" />
+                <element signature="e#2164#2165#0" expanded="true" />
+                <element signature="e#2193#2194#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -128,37 +130,45 @@
       <file leaf-file-name="LanguageListGUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/LanguageListGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+            <state relative-caret-position="511">
+              <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1541#1542#0" expanded="true" />
-                <element signature="e#1570#1571#0" expanded="true" />
+                <element signature="e#2519#2520#0" expanded="true" />
+                <element signature="e#2548#2549#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DbWrapper.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DbWrapper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/DbWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+            <state relative-caret-position="187">
+              <caret line="11" column="33" selection-start-line="10" selection-start-column="35" selection-end-line="11" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#917#925#0" expanded="true" />
-                <element signature="e#1329#1337#0" expanded="true" />
-                <marker date="1545409049355" expanded="true" signature="980:1057" ph="select Name Employee" />
-                <marker date="1545409049355" expanded="true" signature="1025:1056" ph="select Perso... GuidedTour" />
-                <marker date="1545409049355" expanded="true" signature="1400:1456" ph="select Perso... Employee" />
-                <marker date="1545409049355" expanded="true" signature="1524:1627" ph="select Langu... EmployeeLanguage" />
-                <marker date="1545409049355" expanded="true" signature="2100:2159" ph="select Name Language" />
-                <marker date="1545409049355" expanded="true" signature="2249:2312" ph="select Perso... Employee" />
-                <marker date="1545409049355" expanded="true" signature="2495:2572" ph="insert into EmployeeLanguage... " />
-                <marker date="1545409049355" expanded="true" signature="3343:3406" ph="select Perso... Employee" />
-                <marker date="1545409049355" expanded="true" signature="3566:3664" ph="select * fro... GuidedTour" />
-                <marker date="1545409049355" expanded="true" signature="3739:3891" ph="delete from " />
-                <marker date="1545409049355" expanded="true" signature="3787:3850" ph="select Perso... Employee" />
+                <element signature="e#906#916#0" expanded="true" />
+                <element signature="e#1376#1384#0" expanded="true" />
+                <element signature="e#1788#1796#0" expanded="true" />
+                <element signature="e#4892#4904#0" expanded="true" />
+                <marker date="1545489094905" expanded="true" signature="971:1058" ph="select Perso... Employee" />
+                <marker date="1545489094905" expanded="true" signature="1026:1057" ph="select Perso... GuidedTour" />
+                <marker date="1545489094905" expanded="true" signature="1439:1516" ph="select Name Employee" />
+                <marker date="1545489094905" expanded="true" signature="1484:1515" ph="select Perso... GuidedTour" />
+                <marker date="1545489094905" expanded="true" signature="1859:1915" ph="select Perso... Employee" />
+                <marker date="1545489094905" expanded="true" signature="1983:2086" ph="select Langu... EmployeeLanguage" />
+                <marker date="1545489094905" expanded="true" signature="2559:2618" ph="select Name Language" />
+                <marker date="1545489094905" expanded="true" signature="2708:2771" ph="select Perso... Employee" />
+                <marker date="1545489094905" expanded="true" signature="2954:3031" ph="insert into EmployeeLanguage... " />
+                <marker date="1545489094905" expanded="true" signature="3802:3865" ph="select Perso... Employee" />
+                <marker date="1545489094905" expanded="true" signature="4025:4123" ph="select * fro... GuidedTour" />
+                <marker date="1545489094905" expanded="true" signature="4198:4350" ph="delete from " />
+                <marker date="1545489094905" expanded="true" signature="4246:4309" ph="select Perso... Employee" />
+                <marker date="1545489094905" expanded="true" signature="4954:5010" ph="select * fro... Employee" />
+                <marker date="1545489094905" expanded="true" signature="5082:5257" ph="select * fro... Exhibition" />
+                <marker date="1545489094905" expanded="true" signature="5130:5256" ph="select Exhib... EmployeeQualifiedFor" />
+                <marker date="1545489094905" expanded="true" signature="5192:5255" ph="select Perso... Employee" />
               </folding>
             </state>
           </provider>
@@ -167,9 +177,13 @@
       <file leaf-file-name="Guide.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Guide.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="701">
-              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="510">
+              <caret line="75" column="21" selection-start-line="75" selection-start-column="21" selection-end-line="75" selection-end-column="21" />
+              <folding>
+                <element signature="e#1103#1104#0" expanded="true" />
+                <element signature="e#1137#1138#0" expanded="true" />
+                <element signature="method#getMockGuides#0;class#Guide#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -193,21 +207,6 @@
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sample.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding>
-                <marker date="1545397000942" expanded="true" signature="127:187" ph="..." />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
           </provider>
         </entry>
       </file>
@@ -238,13 +237,13 @@
       <list>
         <option value="$PROJECT_DIR$/src/sample/Utils.java" />
         <option value="$PROJECT_DIR$/src/sample/Language.java" />
-        <option value="$PROJECT_DIR$/src/sample/ArtGallery.java" />
         <option value="$PROJECT_DIR$/src/sample/InformationView.java" />
-        <option value="$PROJECT_DIR$/src/sample/Guide.java" />
-        <option value="$PROJECT_DIR$/src/sample/DbWrapper.java" />
         <option value="$PROJECT_DIR$/src/sample/sample.fxml" />
-        <option value="$PROJECT_DIR$/src/sample/LanguageListGUI.java" />
         <option value="$PROJECT_DIR$/src/sample/Exhibition.java" />
+        <option value="$PROJECT_DIR$/src/sample/Guide.java" />
+        <option value="$PROJECT_DIR$/src/sample/ArtGallery.java" />
+        <option value="$PROJECT_DIR$/src/sample/DbWrapper.java" />
+        <option value="$PROJECT_DIR$/src/sample/LanguageListGUI.java" />
         <option value="$PROJECT_DIR$/src/sample/QualificationGUI.java" />
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/sample/EmployeeListGUI.java" />
@@ -839,6 +838,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
@@ -848,12 +850,20 @@
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
       <workItem from="1545255830051" duration="1142000" />
-      <workItem from="1545389291011" duration="13597000" />
+      <workItem from="1545389291011" duration="23428000" />
     </task>
+    <task id="LOCAL-00001" summary="Added the three GUI panels to the scene">
+      <created>1545410314129</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1545410314129</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16041000" />
+    <option name="totallyTimeSpent" value="25872000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1426" extended-state="6" />
@@ -876,7 +886,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39969605" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -902,6 +912,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added the three GUI panels to the scene" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the three GUI panels to the scene" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -915,7 +929,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -944,7 +960,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -996,14 +1014,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/ArtGallery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="936">
-          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1035,57 +1045,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/DbWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#917#925#0" expanded="true" />
-            <element signature="e#1329#1337#0" expanded="true" />
-            <marker date="1545409049355" expanded="true" signature="980:1057" ph="select Name Employee" />
-            <marker date="1545409049355" expanded="true" signature="1025:1056" ph="select Perso... GuidedTour" />
-            <marker date="1545409049355" expanded="true" signature="1400:1456" ph="select Perso... Employee" />
-            <marker date="1545409049355" expanded="true" signature="1524:1627" ph="select Langu... EmployeeLanguage" />
-            <marker date="1545409049355" expanded="true" signature="2100:2159" ph="select Name Language" />
-            <marker date="1545409049355" expanded="true" signature="2249:2312" ph="select Perso... Employee" />
-            <marker date="1545409049355" expanded="true" signature="2495:2572" ph="insert into EmployeeLanguage... " />
-            <marker date="1545409049355" expanded="true" signature="3343:3406" ph="select Perso... Employee" />
-            <marker date="1545409049355" expanded="true" signature="3566:3664" ph="select * fro... GuidedTour" />
-            <marker date="1545409049355" expanded="true" signature="3739:3891" ph="delete from " />
-            <marker date="1545409049355" expanded="true" signature="3787:3850" ph="select Perso... Employee" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/LanguageListGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1541#1542#0" expanded="true" />
-            <element signature="e#1570#1571#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Language.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Guide.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Exhibition.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -1100,37 +1059,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/EmployeeListGUI.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/Language.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Guide.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="75" column="21" selection-start-line="75" selection-start-column="21" selection-end-line="75" selection-end-column="21" />
+          <folding>
+            <element signature="e#1103#1104#0" expanded="true" />
+            <element signature="e#1137#1138#0" expanded="true" />
+            <element signature="method#getMockGuides#0;class#Guide#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/ArtGallery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/LanguageListGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1576#1577#0" expanded="true" />
-            <element signature="e#1612#1613#0" expanded="true" />
-            <element signature="e#1647#1648#0" expanded="true" />
-            <element signature="e#1676#1677#0" expanded="true" />
+            <element signature="e#2519#2520#0" expanded="true" />
+            <element signature="e#2548#2549#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/QualificationGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="606">
-          <caret line="43" column="67" selection-start-line="43" selection-start-column="67" selection-end-line="43" selection-end-column="67" />
+        <state relative-caret-position="334">
+          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1650#1651#0" expanded="true" />
-            <element signature="e#1679#1680#0" expanded="true" />
+            <element signature="e#2747#2748#0" expanded="true" />
+            <element signature="e#2776#2777#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="510">
+          <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/EmployeeListGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2093#2094#0" expanded="true" />
+            <element signature="e#2129#2130#0" expanded="true" />
+            <element signature="e#2164#2165#0" expanded="true" />
+            <element signature="e#2193#2194#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/DbWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="33" selection-start-line="10" selection-start-column="35" selection-end-line="11" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#906#916#0" expanded="true" />
+            <element signature="e#1376#1384#0" expanded="true" />
+            <element signature="e#1788#1796#0" expanded="true" />
+            <element signature="e#4892#4904#0" expanded="true" />
+            <marker date="1545489094905" expanded="true" signature="971:1058" ph="select Perso... Employee" />
+            <marker date="1545489094905" expanded="true" signature="1026:1057" ph="select Perso... GuidedTour" />
+            <marker date="1545489094905" expanded="true" signature="1439:1516" ph="select Name Employee" />
+            <marker date="1545489094905" expanded="true" signature="1484:1515" ph="select Perso... GuidedTour" />
+            <marker date="1545489094905" expanded="true" signature="1859:1915" ph="select Perso... Employee" />
+            <marker date="1545489094905" expanded="true" signature="1983:2086" ph="select Langu... EmployeeLanguage" />
+            <marker date="1545489094905" expanded="true" signature="2559:2618" ph="select Name Language" />
+            <marker date="1545489094905" expanded="true" signature="2708:2771" ph="select Perso... Employee" />
+            <marker date="1545489094905" expanded="true" signature="2954:3031" ph="insert into EmployeeLanguage... " />
+            <marker date="1545489094905" expanded="true" signature="3802:3865" ph="select Perso... Employee" />
+            <marker date="1545489094905" expanded="true" signature="4025:4123" ph="select * fro... GuidedTour" />
+            <marker date="1545489094905" expanded="true" signature="4198:4350" ph="delete from " />
+            <marker date="1545489094905" expanded="true" signature="4246:4309" ph="select Perso... Employee" />
+            <marker date="1545489094905" expanded="true" signature="4954:5010" ph="select * fro... Employee" />
+            <marker date="1545489094905" expanded="true" signature="5082:5257" ph="select * fro... Exhibition" />
+            <marker date="1545489094905" expanded="true" signature="5130:5256" ph="select Exhib... EmployeeQualifiedFor" />
+            <marker date="1545489094905" expanded="true" signature="5192:5255" ph="select Perso... Employee" />
+          </folding>
         </state>
       </provider>
     </entry>

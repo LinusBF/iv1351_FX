@@ -1,6 +1,5 @@
 package sample;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.sql.*;
 
@@ -9,8 +8,8 @@ public class DbWrapper {
     
     private String URL = "jdbc:mysql://localhost:3306/museum";
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String userID = "iv1351";
-    private String password = "1234";
+    private String userID = "root";
+    private String password = "";
     private Statement statement;
     
     public void connect() {
@@ -25,7 +24,17 @@ public class DbWrapper {
         }
     }
     
-    public ArrayList<String> getAllGuides() throws Exception {
+    public ArrayList<String[]> getAllGuidePersonNrAndName() throws Exception {
+        ArrayList<String[]> guides = new ArrayList<String[]>();
+        ResultSet result = statement.executeQuery("select PersonNr, Name from Employee where PersonNr in (select PersonNr from GuidedTour)");
+        while(result.next()) {
+            String[] guideTuple = {result.getString("PersonNr"), result.getString("Name")};
+            guides.add(guideTuple);
+        }
+        return guides;
+    }
+
+    public ArrayList<String> getAllGuideNames() throws Exception {
         ArrayList<String> guides = new ArrayList<String>();
         ResultSet result = statement.executeQuery("select Name from Employee where PersonNr in (select PersonNr from GuidedTour)");
         while(result.next()) {
@@ -110,7 +119,7 @@ public class DbWrapper {
         DbWrapper wrapper = new DbWrapper();
         wrapper.connect();
         try {
-            for(String i : wrapper.getAllGuides()) {
+            for(String i : wrapper.getAllGuideNames()) {
                 System.out.println(i);
             }
             
