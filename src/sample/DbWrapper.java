@@ -34,7 +34,7 @@ public class DbWrapper {
         return guides;
     }
 
-    public ArrayList<String> getAllGuideNames() throws Exception {
+    public ArrayList<String> getAllLanguages() throws Exception {
         ArrayList<String> langs = new ArrayList<String>();
         ResultSet result = statement.executeQuery("select Name from Language");
         while(result.next()) {
@@ -43,7 +43,7 @@ public class DbWrapper {
         return langs;
     }
 
-    public ArrayList<String> getAllLanguageNames() throws Exception {
+    public ArrayList<String> getAllGuideNames() throws Exception {
         ArrayList<String> guides = new ArrayList<String>();
         ResultSet result = statement.executeQuery("select Name from Employee where PersonNr in (select PersonNr from GuidedTour)");
         while(result.next()) {
@@ -54,10 +54,14 @@ public class DbWrapper {
 
     public ArrayList<String> getAllGuideLanguages(String guideName) throws Exception {
         ArrayList<String> guideLanguages = new ArrayList<String>();
-        ResultSet personNrResult = statement.executeQuery("select PersonNr from Employee where Name='"+guideName+"'");
+        PreparedStatement getPersonNr = connection.prepareStatement("select PersonNr from Employee where Name = ?");
+        getPersonNr.setString(1, guideName);
+        ResultSet personNrResult = getPersonNr.executeQuery();
         if(personNrResult.next()) {
-            String query = "select LanguageName from EmployeeLanguage Where PersonNr='" + personNrResult.getString("PersonNr") + "'";
-            ResultSet result = statement.executeQuery(query);
+            String query = "select LanguageName from EmployeeLanguage Where PersonNr = ?";
+            PreparedStatement getLangs = connection.prepareStatement(query);
+            getLangs.setString(1, personNrResult.getString("PersonNr"));
+            ResultSet result = getLangs.executeQuery();
             while(result.next()) {
                 guideLanguages.add(result.getString("LanguageName"));
             }
@@ -68,13 +72,20 @@ public class DbWrapper {
     }
 
     public boolean addEmployeeLanguage(String employeeName, String languageName) throws Exception {
-        ResultSet r = statement.executeQuery("select Name from Language where Name='" + languageName + "'");
+        PreparedStatement getLangName = connection.prepareStatement("select Name from Language where Name = ?");
+        getLangName.setString(1, languageName);
+        ResultSet r = getLangName.executeQuery();
         if(r.next()) {
-            ResultSet personNrResult = statement.executeQuery("select PersonNr from Employee where Name='" + employeeName + "'");
+            PreparedStatement getPersonNr = connection.prepareStatement("select PersonNr from Employee where Name = ?");
+            getPersonNr.setString(1, employeeName);
+            ResultSet personNrResult = getPersonNr.executeQuery();
             if(personNrResult.next()) {
                 String personNr = personNrResult.getString("PersonNr");
                 try {
-                    statement.executeUpdate("insert into EmployeeLanguage values(" + personNr + ", '" + languageName + "')");
+                    PreparedStatement updateEmployeeLang = connection.prepareStatement("insert into EmployeeLanguage values(?, ?)");
+                    updateEmployeeLang.setString(1, personNr);
+                    updateEmployeeLang.setString(2, languageName);
+                    updateEmployeeLang.executeUpdate();
                     connection.commit();
                     System.out.println(languageName + " added for employee " + employeeName);
                     return true;
@@ -86,7 +97,9 @@ public class DbWrapper {
             }
         } else {
             System.out.println("No language with the name " + languageName + " in the database, adding...");
-            int rowsAffected = statement.executeUpdate("insert into Language values('" + languageName + "')");
+            PreparedStatement insertNewLang = connection.prepareStatement("insert into Language values(?)");
+            insertNewLang.setString(1, languageName);
+            int rowsAffected = insertNewLang.executeUpdate();
             if(rowsAffected > 0) {
                 connection.commit();
                 return addEmployeeLanguage(employeeName, languageName);
@@ -99,12 +112,20 @@ public class DbWrapper {
     }
 
     public boolean removeEmployeeLanguage(String employeeName, String languageName) throws Exception {
-        ResultSet personNrResult = statement.executeQuery("select PersonNr from Employee where Name='" + employeeName + "'");
+        PreparedStatement getPersonNr = connection.prepareStatement("select PersonNr from Employee where Name = ?");
+        getPersonNr.setString(1, employeeName);
+        ResultSet personNrResult = getPersonNr.executeQuery();
         if(personNrResult.next()) {
             String personNr = personNrResult.getString("PersonNr");
-            ResultSet foo = statement.executeQuery("select * from GuidedTour where PersonNr='" + personNr + "' and LanguageName='" + languageName + "'");
+            PreparedStatement getGuidedTours = connection.prepareStatement("select * from GuidedTour where PersonNr = ? and LanguageName = ?");
+            getGuidedTours.setString(1, personNr);
+            getGuidedTours.setString(2, languageName);
+            ResultSet foo = getGuidedTours.executeQuery();
             if(!foo.next()) {
-                statement.executeUpdate("delete from EmployeeLanguage where PersonNr in (select PersonNr from Employee where Name='" + employeeName + "') and LanguageName='" + languageName + "'");
+                PreparedStatement deleteEmployeeLang = connection.prepareStatement("delete from EmployeeLanguage where PersonNr in (select PersonNr from Employee where Name = ?) and LanguageName = ?");
+                deleteEmployeeLang.setString(1, employeeName);
+                deleteEmployeeLang.setString(2, languageName);
+                deleteEmployeeLang.executeUpdate();
                 connection.commit();
                 return true;
             } else {
@@ -117,11 +138,16 @@ public class DbWrapper {
     }
 
     public boolean addEmployeeQualification(String employeeName, Integer exhibitionId) throws Exception {
-        ResultSet personNrResult = statement.executeQuery("select PersonNr from Employee where Name='" + employeeName + "'");
+        PreparedStatement getPersonNr = connection.prepareStatement("select PersonNr from Employee where Name = ?");
+        getPersonNr.setString(1, employeeName);
+        ResultSet personNrResult = getPersonNr.executeQuery();
         if(personNrResult.next()) {
             String personNr = personNrResult.getString("PersonNr");
             try {
-                statement.executeUpdate("insert into EmployeeQualifiedFor values(" + personNr + ", '" + exhibitionId + "')");
+                PreparedStatement insertEmployeeQualification = connection.prepareStatement("insert into EmployeeQualifiedFor values(?, ?)");
+                insertEmployeeQualification.setString(1, personNr);
+                insertEmployeeQualification.setInt(2, exhibitionId);
+                insertEmployeeQualification.executeUpdate();
                 connection.commit();
                 System.out.println("Employee " + employeeName + " is now qualified for exhibition " + exhibitionId);
                 return true;
@@ -136,12 +162,20 @@ public class DbWrapper {
     }
 
     public boolean removeEmployeeQualification(String employeeName, Integer exhibitionId) throws Exception {
-        ResultSet personNrResult = statement.executeQuery("select PersonNr from Employee where Name='" + employeeName + "'");
+        PreparedStatement getPersonNr = connection.prepareStatement("select PersonNr from Employee where Name = ?");
+        getPersonNr.setString(1, employeeName);
+        ResultSet personNrResult = getPersonNr.executeQuery();
         if(personNrResult.next()) {
             String personNr = personNrResult.getString("PersonNr");
-            ResultSet foo = statement.executeQuery("select * from GuidedTour where PersonNr='" + personNr + "' and ExhibitionID='" + exhibitionId + "'");
+            PreparedStatement getGuidedTour = connection.prepareStatement("select * from GuidedTour where PersonNr = ? and ExhivitionID = ?");
+            getGuidedTour.setString(1, personNr);
+            getGuidedTour.setInt(2, exhibitionId);
+            ResultSet foo = getGuidedTour.executeQuery();
             if(!foo.next()) {
-                statement.executeUpdate("delete from EmployeeQualifiedFor where PersonNr='" + personNr + "' and ExhibitionID='" + exhibitionId + "'");
+                PreparedStatement deleteEQ = connection.prepareStatement("");
+                deleteEQ.setString(1, personNr);
+                deleteEQ.setInt(2, exhibitionId);
+                deleteEQ.executeUpdate();
                 connection.commit();
                 return true;
             } else {
@@ -155,9 +189,13 @@ public class DbWrapper {
 
     public ArrayList<Exhibition> getExhibitionsEmployeeQualifiedFor(String employeeName) throws Exception {
         ArrayList<Exhibition> exhibitions = new ArrayList<Exhibition>();
-        ResultSet t = statement.executeQuery("select * from Employee where Name='" + employeeName + "'");
+        PreparedStatement getEmployees = connection.prepareStatement("select * from Employee where Name = ?");
+        getEmployees.setString(1, employeeName);
+        ResultSet t = getEmployees.executeQuery();
 		if(t.next())  {
-            ResultSet r = statement.executeQuery("select * from Exhibition where ExhibitionID in (select ExhibitionID from EmployeeQualifiedFor where PersonNr=(select PersonNr from Employee where Name='" + employeeName + "'))");
+		    PreparedStatement getExhibitionByQualification = connection.prepareStatement("select * from Exhibition where ExhibitionID in (select ExhibitionID from EmployeeQualifiedFor where PersonNr=(select PersonNr from Employee where Name = ?))");
+            getExhibitionByQualification.setString(1, employeeName);
+		    ResultSet r = getExhibitionByQualification.executeQuery();
             while(r.next()) {
                 exhibitions.add(new Exhibition(r.getInt("ExhibitionID"), r.getString("Title"), r.getDate("Start"), r.getDate("End"), r.getInt("Space"), r.getDouble("Cost")));
             }
@@ -182,7 +220,7 @@ public class DbWrapper {
         DbWrapper wrapper = new DbWrapper();
         wrapper.connect();
         try {
-            for(String i : wrapper.getAllGuideNames()) {
+            for(String i : wrapper.getAllLanguages()) {
                 System.out.println(i);
             }
 

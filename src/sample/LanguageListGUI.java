@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
@@ -65,11 +66,21 @@ public class LanguageListGUI {
     }
 
     private void addLanguage(){
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Add a language to a guide");
-        dialog.setContentText("Please enter your name:");
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(lang -> Main.singleton.addLanguageToGuide(new Language(lang)));
+        ArrayList<Language> languages;
+        try{
+            languages = Language.getLangs();
+        } catch (Exception e){
+            System.out.println("Can't reach the database");
+            languages = new ArrayList<>();
+        }
+
+        if(languages.size() > 0) {
+            ChoiceDialog<Language> dialog = new ChoiceDialog<>(languages.get(0), languages);
+            dialog.setTitle("Add a language to a guide");
+            dialog.setContentText("Please select a language:");
+            Optional<Language> result = dialog.showAndWait();
+            result.ifPresent(lang -> Main.singleton.addLanguageToGuide(lang));
+        }
     }
 
     private void deleteLanguage(){

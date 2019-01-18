@@ -26,7 +26,7 @@ public class Language {
         DbWrapper db = new DbWrapper();
         db.connect();
 
-        for (String lang : db.getAllLanguageNames()) {
+        for (String lang : db.getAllLanguages()) {
             langs.add(new Language(lang, false));
         }
 

@@ -46,6 +46,12 @@ public class Guide {
         return exhibitions;
     }
 
+    public ArrayList<Exhibition> getQualifications() throws Exception {
+        DbWrapper db = new DbWrapper();
+        db.connect();
+        return db.getExhibitionsEmployeeQualifiedFor(name);
+    }
+
     private static Guide[] getMockGuides() throws Exception {
         ArrayList<Language> langs = Language.getLangs();
 

@@ -102,6 +102,10 @@ public class Main extends Application {
         }
     }
 
+    public Guide getSelectedGuide() {
+        return employeeListGUI.getSelectedGuide();
+    }
+
 
     public static void main(String[] args) {
         launch(args);

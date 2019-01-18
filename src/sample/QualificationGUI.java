@@ -13,7 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -71,13 +73,16 @@ public class QualificationGUI {
         ArrayList<Exhibition> exhibitions;
         try{
             exhibitions = Exhibition.getAllExhibitions();
+            Collection<Exhibition> currentQualifications = Main.singleton.getSelectedGuide().getQualifications();
+            exhibitions.removeAll(currentQualifications);
         } catch (Exception e){
             System.out.println("Can't reach the database");
             exhibitions = new ArrayList<>();
         }
 
         if(exhibitions.size() > 0) {
-            ChoiceDialog<Exhibition> dialog = new ChoiceDialog<>(exhibitions.get(0), exhibitions);
+            Exhibition firstListElement = exhibitions.get(0);
+            ChoiceDialog<Exhibition> dialog = new ChoiceDialog<>(firstListElement, exhibitions);
             dialog.setTitle("Add a qualification to a guide");
             dialog.setContentText("Choose an exhibition:");
             Optional<Exhibition> result = dialog.showAndWait();
