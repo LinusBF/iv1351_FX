@@ -55,4 +55,9 @@ public class Exhibition {
     public String toString() {
         return title;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Exhibition && this.getID().equals(((Exhibition) obj).getID());
+    }
 }
