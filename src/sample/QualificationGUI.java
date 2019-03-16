@@ -1,36 +1,30 @@
 package sample;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Created by Linus on 2018-12-21.
  */
-public class QualificationGUI {
+class QualificationGUI {
     private GridPane layout;
     private Exhibition selectedQualification;
     private ListView<Exhibition> qualificationList;
     private ArrayList<Exhibition> qualifications;
+    private Button deleteBtn;
 
-    public QualificationGUI(ArrayList<Exhibition> qualifications) throws Exception{
+    QualificationGUI(ArrayList<Exhibition> qualifications) throws Exception{
         this.qualifications = qualifications;
-        selectedQualification = qualifications.get(0);
+        selectedQualification = (qualifications.isEmpty() ? null : qualifications.get(0));
         layout = new GridPane();
         qualificationList = new ListView<>();
         qualificationList.getItems().setAll(qualifications);
@@ -48,18 +42,17 @@ public class QualificationGUI {
         Text title = new Text("Qualifications");
         title.setFont(new Font(24));
         HBox btnBox = new HBox(15);
-        Button addLangBtn = Utils.createButton("Add Qualification", event -> addQualification());
-        Button deleteLangBtn = Utils.createButton("Remove Qualification", event -> deleteQualification());
-        btnBox.getChildren().addAll(addLangBtn, deleteLangBtn);
+        Button addQualBtn = Utils.createButton("Add Qualification", event -> addQualification());
+        Button deleteQualBtn = Utils.createButton("Remove Qualification", event -> deleteQualification());
+        deleteBtn = deleteQualBtn;
+        if(selectedQualification == null) deleteBtn.setDisable(true);
+        btnBox.getChildren().addAll(addQualBtn, deleteQualBtn);
         box.getChildren().addAll(title, qualificationList, btnBox);
         layout.add(box, 0, 0);
 
-        qualificationList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Exhibition>() {
-            @Override
-            public void changed(ObservableValue<? extends Exhibition> observable, Exhibition oldValue, Exhibition newValue) {
-                if(newValue != null) {
-                    selectNewQualification(newValue);
-                }
+        qualificationList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null) {
+                selectNewQualification(newValue);
             }
         });
 
@@ -68,8 +61,6 @@ public class QualificationGUI {
     }
 
     private void addQualification() {
-        /*ArrayList<String> exhibitionNames = new ArrayList<>();
-        exhibitionNames.addAll(Exhibition.getAllExhibitions().stream().map(Exhibition::toString).collect(Collectors.toList()));*/
         ArrayList<Exhibition> exhibitions;
         try{
             exhibitions = Exhibition.getAllExhibitions();
@@ -96,20 +87,25 @@ public class QualificationGUI {
 
     private void selectNewQualification(Exhibition newQualification){
         selectedQualification = newQualification;
+        deleteBtn.setDisable((selectedQualification == null));
         System.out.println("Selected qualification " + newQualification);
     }
 
-    public Exhibition getSelectedQualification(){
+    Exhibition getSelectedQualification(){
         return selectedQualification;
     }
 
-    public void updateQualifications(ArrayList<Exhibition> qualifications){
+    void updateQualifications(ArrayList<Exhibition> qualifications){
         this.qualifications = qualifications;
         qualificationList.getItems().setAll(qualifications);
-        selectedQualification = qualifications.get(0);
+        if(qualificationList.getItems().isEmpty()){
+            selectNewQualification(null);
+        } else {
+            selectNewQualification(qualifications.get(0));
+        }
     }
 
-    public GridPane getLayout() {
+    GridPane getLayout() {
         return layout;
     }
 }

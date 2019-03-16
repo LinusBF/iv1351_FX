@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.sql.*;
 
 public class DbWrapper {
-    static public Connection connection;
+    private static Connection connection;
 
     private String URL = "jdbc:mysql://localhost:3306/museum";
     private String driver = "com.mysql.cj.jdbc.Driver";
@@ -12,7 +12,7 @@ public class DbWrapper {
     private String password = "";
     private Statement statement;
 
-    public void connect() {
+    void connect() {
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(URL, userID, password);
@@ -24,9 +24,9 @@ public class DbWrapper {
         }
     }
 
-    public ArrayList<String[]> getAllGuidePersonNrAndName() throws Exception {
+    ArrayList<String[]> getAllGuidePersonNrAndName() throws Exception {
         ArrayList<String[]> guides = new ArrayList<String[]>();
-        ResultSet result = statement.executeQuery("select PersonNr, Name from Employee where PersonNr in (select PersonNr from GuidedTour)");
+        ResultSet result = statement.executeQuery("select PersonNr, Name from Employee");
         while(result.next()) {
             String[] guideTuple = {result.getString("PersonNr"), result.getString("Name")};
             guides.add(guideTuple);
@@ -34,7 +34,7 @@ public class DbWrapper {
         return guides;
     }
 
-    public ArrayList<String> getAllLanguages() throws Exception {
+    ArrayList<String> getAllLanguages() throws Exception {
         ArrayList<String> langs = new ArrayList<String>();
         ResultSet result = statement.executeQuery("select Name from Language");
         while(result.next()) {
@@ -43,16 +43,7 @@ public class DbWrapper {
         return langs;
     }
 
-    public ArrayList<String> getAllGuideNames() throws Exception {
-        ArrayList<String> guides = new ArrayList<String>();
-        ResultSet result = statement.executeQuery("select Name from Employee where PersonNr in (select PersonNr from GuidedTour)");
-        while(result.next()) {
-            guides.add(result.getString("Name"));
-        }
-        return guides;
-    }
-
-    public ArrayList<String> getAllGuideLanguages(String guideName) throws Exception {
+    ArrayList<String> getAllGuideLanguages(String guideName) throws Exception {
         ArrayList<String> guideLanguages = new ArrayList<String>();
         PreparedStatement getPersonNr = connection.prepareStatement("select PersonNr from Employee where Name = ?");
         getPersonNr.setString(1, guideName);
@@ -71,7 +62,7 @@ public class DbWrapper {
         return guideLanguages;
     }
 
-    public boolean addEmployeeLanguage(String employeeName, String languageName) throws Exception {
+    boolean addEmployeeLanguage(String employeeName, String languageName) throws Exception {
         PreparedStatement getLangName = connection.prepareStatement("select Name from Language where Name = ?");
         getLangName.setString(1, languageName);
         ResultSet r = getLangName.executeQuery();
@@ -111,7 +102,7 @@ public class DbWrapper {
         return false;
     }
 
-    public boolean removeEmployeeLanguage(String employeeName, String languageName) throws Exception {
+    boolean removeEmployeeLanguage(String employeeName, String languageName) throws Exception {
         PreparedStatement getPersonNr = connection.prepareStatement("select PersonNr from Employee where Name = ?");
         getPersonNr.setString(1, employeeName);
         ResultSet personNrResult = getPersonNr.executeQuery();
@@ -137,7 +128,7 @@ public class DbWrapper {
         return false;
     }
 
-    public boolean addEmployeeQualification(String employeeName, Integer exhibitionId) throws Exception {
+    boolean addEmployeeQualification(String employeeName, Integer exhibitionId) throws Exception {
         PreparedStatement getPersonNr = connection.prepareStatement("select PersonNr from Employee where Name = ?");
         getPersonNr.setString(1, employeeName);
         ResultSet personNrResult = getPersonNr.executeQuery();
@@ -161,18 +152,18 @@ public class DbWrapper {
         return false;
     }
 
-    public boolean removeEmployeeQualification(String employeeName, Integer exhibitionId) throws Exception {
+    boolean removeEmployeeQualification(String employeeName, Integer exhibitionId) throws Exception {
         PreparedStatement getPersonNr = connection.prepareStatement("select PersonNr from Employee where Name = ?");
         getPersonNr.setString(1, employeeName);
         ResultSet personNrResult = getPersonNr.executeQuery();
         if(personNrResult.next()) {
             String personNr = personNrResult.getString("PersonNr");
-            PreparedStatement getGuidedTour = connection.prepareStatement("select * from GuidedTour where PersonNr = ? and ExhivitionID = ?");
+            PreparedStatement getGuidedTour = connection.prepareStatement("select * from GuidedTour where PersonNr = ? and ExhibitionID = ? and StartTime >= NOW()");
             getGuidedTour.setString(1, personNr);
             getGuidedTour.setInt(2, exhibitionId);
             ResultSet foo = getGuidedTour.executeQuery();
             if(!foo.next()) {
-                PreparedStatement deleteEQ = connection.prepareStatement("");
+                PreparedStatement deleteEQ = connection.prepareStatement("delete from EmployeeQualifiedFor where PersonNr=? and ExhibitionID=?");
                 deleteEQ.setString(1, personNr);
                 deleteEQ.setInt(2, exhibitionId);
                 deleteEQ.executeUpdate();
@@ -187,7 +178,7 @@ public class DbWrapper {
         return false;
     }
 
-    public ArrayList<Exhibition> getExhibitionsEmployeeQualifiedFor(String employeeName) throws Exception {
+    ArrayList<Exhibition> getExhibitionsEmployeeQualifiedFor(String employeeName) throws Exception {
         ArrayList<Exhibition> exhibitions = new ArrayList<Exhibition>();
         PreparedStatement getEmployees = connection.prepareStatement("select * from Employee where Name = ?");
         getEmployees.setString(1, employeeName);
@@ -206,7 +197,7 @@ public class DbWrapper {
         return exhibitions;
     }
 
-    public ArrayList<Exhibition> getAllExhibitions() throws Exception {
+    ArrayList<Exhibition> getAllExhibitions() throws Exception {
         ArrayList<Exhibition> exhibitions = new ArrayList<Exhibition>();
         ResultSet r = statement.executeQuery("select * from Exhibition");
         while(r.next()) {

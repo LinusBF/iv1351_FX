@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Main extends Application {
 
-    public static Main singleton;
+    static Main singleton;
 
     private QualificationGUI qualificationGUI;
     private EmployeeListGUI employeeListGUI;
@@ -39,7 +39,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void changeSelectedGuide(Guide newGuide){
+    void changeSelectedGuide(Guide newGuide){
         qualificationGUI.updateQualifications(newGuide.getExhibitions());
         languageListGUI.updateLanguages(newGuide.getLangs());
     }
@@ -60,49 +60,55 @@ public class Main extends Application {
         }
     }
 
-    public void addLanguageToGuide(Language lang){
+    void addLanguageToGuide(Language lang){
         try{
             if(employeeListGUI.getSelectedGuide().addLangToGuide(lang)){
                 refresh();
             }
         } catch (Exception e) {
-            System.out.println("Can't talk to the database!");
+            System.out.println("Can't talk to the database!\nStacktrace:");
+            e.printStackTrace();
         }
     }
 
-    public void removeLanguageFromGuide(){
+    void removeLanguageFromGuide(){
         Language langToRemove = languageListGUI.getSelectedLanguage();
         try{
             if(employeeListGUI.getSelectedGuide().removeLangFromGuide(langToRemove)){
                 refresh();
             }
         } catch (Exception e){
-            System.out.println("Can't talk to the database!");
+            System.out.println("Can't talk to the database!\nStacktrace:");
+            e.printStackTrace();
         }
     }
 
-    public void addQualificationToGuide(Exhibition exhibition){
+    void addQualificationToGuide(Exhibition exhibition){
         try{
             if(employeeListGUI.getSelectedGuide().addQualificationToGuide(exhibition)){
                 refresh();
             }
         } catch (Exception e){
-            System.out.println("Can't talk to the database!");
+            System.out.println("Can't talk to the database!\nStacktrace:");
+            e.printStackTrace();
         }
     }
 
-    public void removeQualificationFromGuide(){
+    void removeQualificationFromGuide(){
         Exhibition qualificationToRemove = qualificationGUI.getSelectedQualification();
         try{
             if(employeeListGUI.getSelectedGuide().removeQualificationFromGuide(qualificationToRemove)){
                 refresh();
+            } else {
+                employeeListGUI.showOccupiedGuideWarning();
             }
         } catch (Exception e){
-            System.out.println("Can't talk to the database!");
+            System.out.println("Can't talk to the database!\nStacktrace:");
+            e.printStackTrace();
         }
     }
 
-    public Guide getSelectedGuide() {
+    Guide getSelectedGuide() {
         return employeeListGUI.getSelectedGuide();
     }
 

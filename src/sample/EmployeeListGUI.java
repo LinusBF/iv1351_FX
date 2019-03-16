@@ -1,15 +1,8 @@
 package sample;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -19,14 +12,14 @@ import java.util.ArrayList;
 /**
  * Created by Linus on 2018-12-21.
  */
-public class EmployeeListGUI {
+class EmployeeListGUI {
 
     private GridPane layout;
     private ListView<Guide> guideList;
     private ArrayList<Guide> guides;
     private Guide selectedGuide;
 
-    public EmployeeListGUI(ArrayList<Guide> guides) {
+    EmployeeListGUI(ArrayList<Guide> guides) {
         this.guides = guides;
         selectedGuide = guides.get(0);
         layout = new GridPane();
@@ -48,12 +41,9 @@ public class EmployeeListGUI {
         box.getChildren().addAll(title, guideList);
         layout.add(box, 0, 0);
 
-        guideList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Guide>() {
-            @Override
-            public void changed(ObservableValue<? extends Guide> observable, Guide oldValue, Guide newValue) {
-                if(newValue != null) {
-                    selectNewGuide(newValue);
-                }
+        guideList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null) {
+                selectNewGuide(newValue);
             }
         });
 
@@ -61,7 +51,7 @@ public class EmployeeListGUI {
         guideList.getFocusModel().focus(guides.indexOf(selectedGuide));
     }
 
-    public void updateGuides(ArrayList<Guide> guides){
+    void updateGuides(ArrayList<Guide> guides){
         this.guides = guides;
         selectedGuide = (guides.contains(selectedGuide) ? guides.get(guides.indexOf(selectedGuide)) : guides.get(0));
         guideList.getItems().setAll(guides);
@@ -69,18 +59,26 @@ public class EmployeeListGUI {
         guideList.getFocusModel().focus(guides.indexOf(selectedGuide));
     }
 
-    public void selectNewGuide(Guide newGuide){
+    private void selectNewGuide(Guide newGuide){
         if (newGuide.equals(selectedGuide)) return;
         selectedGuide = newGuide;
         System.out.println("Selected guide " + newGuide.getName());
         Main.singleton.changeSelectedGuide(newGuide);
     }
 
-    public Guide getSelectedGuide(){
+    void showOccupiedGuideWarning(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Could not delete qualification!");
+        alert.setHeaderText("This guide is occupied!");
+        alert.setContentText("This guide is scheduled to host a guided tour using this qualification.\nTherefore is could not be removed!");
+        alert.showAndWait();
+    }
+
+    Guide getSelectedGuide(){
         return selectedGuide;
     }
 
-    public GridPane getLayout() {
+    GridPane getLayout() {
         return layout;
     }
 }

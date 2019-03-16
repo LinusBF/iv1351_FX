@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class ArtGallery {
     private ArrayList<Guide> guides;
 
-    public ArtGallery(){
+    private ArtGallery(){
         super();
         try{
             guides = Guide.getGuides();
@@ -15,7 +15,7 @@ public class ArtGallery {
         }
     }
 
-    public void printMenu(){
+    void printMenu(){
         System.out.println("\nChoose an operation:");
         System.out.println("1. Show all guides");
         System.out.println("2. Show languages a guide speaks");
@@ -43,7 +43,7 @@ public class ArtGallery {
         return chosenLang;
     }
 
-    public void printGuideLang(String name){
+    private void printGuideLang(String name){
         Guide chosenGuide = this.getGuideByName(name);
         if(chosenGuide == null){
             System.out.println("\n\nCould not find a guide with that name!");
@@ -56,7 +56,7 @@ public class ArtGallery {
         }
     }
 
-    public void addLangToGuide(String name, String lang) throws Exception {
+    private void addLangToGuide(String name, String lang) throws Exception {
         Guide chosenGuide = this.getGuideByName(name);
         Language chosenLang = this.getLangByName(lang);
         if(chosenGuide == null){
@@ -68,19 +68,6 @@ public class ArtGallery {
 
             chosenGuide.addLanguage(chosenLang);
             System.out.println(chosenGuide.getName() + " can now speak " + chosenLang.name);
-        }
-    }
-
-    public void saveState(){
-        ArrayList<Language> savedLangs = new ArrayList<>();
-        for (Guide g : guides){
-            g.save();
-            for(Language l : g.getLangs()){
-                if(!savedLangs.contains(l)){
-                    l.save();
-                    savedLangs.add(l);
-                }
-            }
         }
     }
 

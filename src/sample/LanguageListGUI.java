@@ -1,32 +1,28 @@
 package sample;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 /**
  * Created by Linus on 2018-12-21.
  */
-public class LanguageListGUI {
+class LanguageListGUI {
 
     private GridPane layout;
     private Language selectedLanguage;
     private ListView<Language> languageList;
     private ArrayList<Language> langs;
 
-    public LanguageListGUI(ArrayList<Language> langs) throws Exception{
+    LanguageListGUI(ArrayList<Language> langs) throws Exception{
         this.langs = langs;
         layout = new GridPane();
         languageList = new ListView<>();
@@ -52,12 +48,9 @@ public class LanguageListGUI {
         box.getChildren().addAll(title, languageList, btnBox);
         layout.add(box, 0, 0);
 
-        languageList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Language>() {
-            @Override
-            public void changed(ObservableValue<? extends Language> observable, Language oldValue, Language newValue) {
-                if(newValue != null) {
-                    selectNewLanguage(newValue);
-                }
+        languageList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null) {
+                selectNewLanguage(newValue);
             }
         });
 
@@ -69,6 +62,8 @@ public class LanguageListGUI {
         ArrayList<Language> languages;
         try{
             languages = Language.getLangs();
+            Collection<Language> currentLanguages = Main.singleton.getSelectedGuide().getLangs();
+            languages.removeAll(currentLanguages);
         } catch (Exception e){
             System.out.println("Can't reach the database");
             languages = new ArrayList<>();
@@ -92,17 +87,17 @@ public class LanguageListGUI {
         System.out.println("Selected language " + newLang);
     }
 
-    public Language getSelectedLanguage(){
+    Language getSelectedLanguage(){
         return selectedLanguage;
     }
 
-    public void updateLanguages(ArrayList<Language> langs){
+    void updateLanguages(ArrayList<Language> langs){
         this.langs = langs;
         languageList.getItems().setAll(langs);
         selectedLanguage = langs.get(0);
     }
 
-    public GridPane getLayout() {
+    GridPane getLayout() {
         return layout;
     }
 }
